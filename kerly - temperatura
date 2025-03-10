@@ -1,18 +1,27 @@
-# Definimos las ciudades, días de la semana y semanas.
-ciudades = ["Guayaquil", "Quito", "Quevedo", "Cuenca", "Ambato"]
+# Crear una matriz 3D para almacenar datos de temperaturas
+# Primera dimensión: Ciudades (3 ciudades)
+# Segunda dimensión: Días de la semana (7 días)
+# Tercera dimensión: Semanas (4 semanas)
+
+import random
+
+ciudades = ["Guayaquil", "Quito", "Quevedo"]
 dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
-semanas = 4 # Número de semanas
+semanas = 4 # de semanas 
 
-# Creamos la matriz 3D (ciudad x día x semana) con temperaturas aleatorias
-matriz_temperaturas = [[[random.randint(10, 35) for _ in range(len(dias_semana))] for _ in range(semanas)] for _ in range(len(ciudades))]
+# Crear matriz 3D con temperaturas aleatorias
+temperaturas = []
+for ciudad in ciudades:
+    semanas_lista = []
+    for _ in range(semanas):
+        dias_lista = [{"day": dia, "temp": random.randint(10, 35)} for dia in dias_semana]
+        semanas_lista.append(dias_lista)
+    temperaturas.append(semanas_lista)
 
-# Calcular promedios de temperaturas por ciudad y semana.
-
+# Calcular promedios
 for i, ciudad in enumerate(ciudades):
     print(f"\nPromedio de temperaturas para {ciudad}:")
     for semana in range(semanas):
-        promedio = sum(matriz_temperaturas[i][semana]) / len(dias_semana)
+        promedio = sum(dia["temp"] for dia in temperaturas[i][semana]) / len(dias_semana)
         print(f"  Semana {semana + 1}: {promedio:.2f}°C")
-
-
 
